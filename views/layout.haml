@@ -8,7 +8,7 @@
       .header
         %a{href: "/"}
           %img#logo{:src => "/images/xd.svg"}
- 
+
       .flex-container
         .main
           = yield
@@ -28,6 +28,10 @@
             %li
               %h1 Accounting API
             %li.links
+              %a{:href => "/accounts"} Get Accounts
+            %li.links
               %a{:href => "/invoices"} Get Invoices
+            %li.links
+              %a{:href => "/contacts"} Get Contacts
             %li.links
               %a{:href => "/organisation"} Get Organisation

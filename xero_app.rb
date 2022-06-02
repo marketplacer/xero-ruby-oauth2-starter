@@ -109,11 +109,28 @@ get '/connections' do
 end
 
 # This endpoint shows invoice data via the 'invoices.haml' view.
+get '/accounts' do
+  xero_client.set_token_set(session[:token_set])
+  tenant_id = xero_client.connections[0]['tenantId']
+  @accounts = xero_client.accounting_api.get_accounts(tenant_id).accounts.map(&:to_s)
+
+  haml :accounts
+end
+
+# This endpoint shows invoice data via the 'invoices.haml' view.
 get '/invoices' do
   xero_client.set_token_set(session[:token_set])
   tenant_id = xero_client.connections[0]['tenantId']
   @invoices = xero_client.accounting_api.get_invoices(tenant_id).invoices
   haml :invoices
+end
+
+# This endpoint shows invoice data via the 'contacts.haml' view.
+get '/contacts' do
+  xero_client.set_token_set(session[:token_set])
+  tenant_id = xero_client.connections[0]['tenantId']
+  @contacts = xero_client.accounting_api.get_contacts(tenant_id).contacts
+  haml :contacts
 end
 
 # This endpoint returns the object of the first organisation that appears
