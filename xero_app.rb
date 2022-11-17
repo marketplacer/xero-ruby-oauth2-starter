@@ -134,7 +134,7 @@ get '/contacts' do
 end
 
 get '/invoices/create' do
-  erb :create_invoices
+  haml :create_invoices
 end
 
 post '/invoices/create' do
