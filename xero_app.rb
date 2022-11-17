@@ -144,6 +144,7 @@ post '/invoices/create' do
   json = params['invoices']
   xero_client.accounting_api.create_invoices(tenant_id, json)
 
+  @invoices = xero_client.accounting_api.get_invoices(tenant_id).invoices
   haml :invoices
 rescue XeroRuby::ApiError => e
   @message = e.message
