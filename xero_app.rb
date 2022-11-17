@@ -133,6 +133,23 @@ get '/contacts' do
   haml :contacts
 end
 
+get '/invoices/create' do
+  erb :create_invoices
+end
+
+post '/invoices/create' do
+  xero_client.set_token_set(session[:token_set])
+  tenant_id = xero_client.connections[0]['tenantId']
+
+  json = params['invoices']
+  xero_client.accounting_api.create_invoices(tenant_id, json)
+
+  haml :invoices
+rescue XeroRuby::ApiError => e
+  @message = e.message
+  haml :error
+end
+
 # This endpoint returns the object of the first organisation that appears
 # in the xero_client.connections array.
 get '/organisation' do
